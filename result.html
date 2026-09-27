@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chuyển điểm thành công</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      body {
+        background: #e7edf1;
+        position: relative;
+        min-height: 100vh;
+      }
+
+      .result-card {
+        position: relative;
+        z-index: 1;
+        max-width: 980px;
+        margin: 60px auto;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid rgba(132, 146, 164, 0.55);
+        box-shadow: 0 10px 25px rgba(18, 39, 70, 0.14);
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .result-header {
+        padding: 20px 24px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .brand-logo-result {
+        width: min(100%, 540px);
+        height: auto;
+        display: block;
+      }
+
+      .success-title {
+        font-size: clamp(2.3rem, 4vw, 5rem);
+        font-weight: 900;
+        color: #0d68ff;
+        margin: 10px 0 0;
+        line-height: 1.1;
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+      }
+
+      .result-date {
+        font-size: clamp(1.1rem, 2vw, 2rem);
+        margin: 12px 0 18px;
+        color: #2b3c4c;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      .result-list {
+        width: 100%;
+        border-top: 1px solid rgba(118, 136, 157, 0.6);
+      }
+
+      .result-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        padding: 22px 18px;
+        border-bottom: 1px solid rgba(118, 136, 157, 0.6);
+        font-size: clamp(1.05rem, 1.8vw, 1.8rem);
+      }
+
+      .result-row .label {
+        color: #2e3d52;
+        font-weight: 500;
+      }
+
+      .result-row .value {
+        color: #0e2f59;
+        font-weight: 700;
+        text-align: right;
+      }
+
+      .result-row .value.red {
+        color: #e53935;
+      }
+
+      .result-msg {
+        padding: 26px 18px 18px;
+        font-size: clamp(1.4rem, 2.5vw, 2.6rem);
+        text-align: center;
+        color: #1d2d3e;
+        font-weight: 500;
+      }
+
+      .result-footer {
+        width: calc(100% + 2px);
+        margin-left: -1px;
+        margin-right: -1px;
+        background: linear-gradient(180deg, #0d8cff 0%, #0b7af4 100%);
+        color: white;
+        text-align: center;
+        font-size: clamp(2rem, 5vw, 4rem);
+        font-weight: 900;
+        font-family: 'Montserrat', sans-serif;
+        padding: 24px 12px;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin: 16px auto 0;
+        padding: 10px 20px;
+        background: #0d68ff;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="https://videos.files.wordpress.com/T07SD9Eb/ok.mp4" type="video/mp4" />
+    </video>
+
+    <div class="result-card">
+      <div class="result-header">
+        <img
+          class="brand-logo-result"
+          src="https://spacexlink.wordpress.com/wp-content/uploads/2026/05/llwinkjclanding12.png"
+          alt="LLwin logo"
+        />
+        <div class="success-title">CHUYỂN THÀNH CÔNG</div>
+        <div class="result-date" id="resultDate">Ngày chuyển: --</div>
+      </div>
+
+      <div class="result-list">
+        <div class="result-row">
+          <div class="label">Tài khoản nguồn:</div>
+          <div class="value" id="sourceValue">--</div>
+        </div>
+        <div class="result-row">
+          <div class="label">Tài khoản đến:</div>
+          <div class="value" id="targetValue">--</div>
+        </div>
+        <div class="result-row">
+          <div class="label">Số điểm chuyển:</div>
+          <div class="value red" id="amountValue">--</div>
+        </div>
+      </div>
+
+      <div class="result-msg">Chúc bạn chơi game vui vẻ!</div>
+
+      <button class="result-footer" id="closeButton" type="button">ĐÓNG</button>
+    </div>
+
+    <script>
+      const result = JSON.parse(localStorage.getItem('transferResult') || '{}');
+      document.getElementById('resultDate').textContent = 'Ngày chuyển: ' + (result.transferDate || '--');
+      document.getElementById('sourceValue').textContent = result.sourceAccount || '--';
+      document.getElementById('targetValue').textContent = result.targetAccount || '--';
+      document.getElementById('amountValue').textContent = result.amount ? result.amount.toLocaleString('vi-VN') : '--';
+
+      document.getElementById('closeButton').addEventListener('click', () => {
+        window.location.href = 'index.html';
+      });
+    </script>
+  </body>
+</html>
