@@ -86,7 +86,7 @@ body {
 
 .brand-logo {
   display: block;
-  width: min(100%, 620px);
+  width: min(100%, 347px);
   max-width: 100%;
   height: auto;
   object-fit: contain;
