@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chuyển điểm</title>
+    <link rel="icon" type="image/png" href="images/LLwin-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="form">
@@ -27,10 +28,10 @@
 
         <form id="transferForm" class="transfer-form" novalidate>
           <div class="input-row">
-            <input id="sourceAccount" type="text" placeholder="Nhập tài khoản nguồn" aria-label="Nhập tài khoản nguồn" />
+            <input id="sourceAccount" type="text" minlength="7" placeholder="Nhập tài khoản nguồn (ít nhất 7 ký tự)" aria-label="Nhập tài khoản nguồn (ít nhất 7 ký tự)" />
           </div>
           <div class="input-row">
-            <input id="targetAccount" type="text" placeholder="Nhập tài khoản đến" aria-label="Nhập tài khoản đến" />
+            <input id="targetAccount" type="text" minlength="7" placeholder="Nhập tài khoản đến (ít nhất 7 ký tự)" aria-label="Nhập tài khoản đến (ít nhất 7 ký tự)" />
           </div>
           <div class="input-row">
             <input id="transferAmount" type="number" min="1" placeholder="Nhập số điểm chuyển" aria-label="Nhập số điểm chuyển" />
@@ -52,6 +53,13 @@
         </form>
       </div>
     </div>
+
+    <dialog class="notice-dialog" id="noticeDialog" aria-labelledby="noticeTitle" aria-describedby="noticeMessage">
+      <div class="notice-icon" aria-hidden="true">!</div>
+      <h2 class="notice-title" id="noticeTitle">Vui lòng kiểm tra lại</h2>
+      <p class="notice-message" id="noticeMessage"></p>
+      <button class="notice-button" id="noticeClose" type="button">ĐÃ HIỂU</button>
+    </dialog>
 
     <script src="script.js"></script>
   </body>
