@@ -12,7 +12,7 @@ loginForm.addEventListener('submit', function (event) {
   const username = document.getElementById('username').value.trim();
   const password = document.getElementById('password').value;
 
-  if (username === 'lhehopee' && password === 'hopee01') {
+  if (username === 'lhehopee' && password === 'hopee1e') {
     sessionStorage.setItem(authenticatedKey, 'true');
     window.location.replace('index.html');
     return;
