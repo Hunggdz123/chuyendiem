@@ -156,6 +156,11 @@
     </style>
   </head>
   <body>
+    <script>
+      if (sessionStorage.getItem('transferAuthenticated') !== 'true') {
+        window.location.replace('login.html');
+      }
+    </script>
     <video class="bg-video" autoplay muted loop playsinline>
       <source src="https://videos.files.wordpress.com/T07SD9Eb/ok.mp4" type="video/mp4" />
     </video>

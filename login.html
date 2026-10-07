@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng nhập - Chuyển điểm</title>
+    <link rel="icon" type="image/png" href="images/LLwin-logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <video class="bg-video" autoplay muted loop playsinline>
+      <source src="https://videos.files.wordpress.com/T07SD9Eb/ok.mp4" type="video/mp4" />
+    </video>
+    <main class="page-shell">
+      <section class="app-card">
+        <div class="brand-wrap">
+          <img class="brand-logo" src="images/LLwin-logo.png" alt="LLwin logo" />
+        </div>
+
+        <h1 class="page-title">ĐĂNG NHẬP</h1>
+
+        <form id="loginForm" class="transfer-form login-form">
+          <div class="input-row">
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Tên đăng nhập"
+              aria-label="Tên đăng nhập"
+              autocomplete="username"
+              required
+              autofocus
+            />
+          </div>
+          <div class="input-row">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Mật khẩu"
+              aria-label="Mật khẩu"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <p class="login-error" id="loginError" role="alert" aria-live="polite"></p>
+          <button type="submit" class="bottom-bar">ĐĂNG NHẬP</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="login.js"></script>
+  </body>
+</html>

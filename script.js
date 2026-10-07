@@ -1,10 +1,22 @@
+if (sessionStorage.getItem('transferAuthenticated') !== 'true') {
+  window.location.replace('login.html');
+}
+
 const transferForm = document.getElementById('transferForm');
 const verifyBox = document.querySelector('.verify-box');
 const noticeDialog = document.getElementById('noticeDialog');
 const noticeMessage = document.getElementById('noticeMessage');
 const noticeClose = document.getElementById('noticeClose');
+const logoutButton = document.getElementById('logoutButton');
 let isHumanVerified = false;
 let focusAfterNotice = null;
+
+if (logoutButton) {
+  logoutButton.addEventListener('click', function () {
+    sessionStorage.removeItem('transferAuthenticated');
+    window.location.replace('login.html');
+  });
+}
 
 function showNotice(message, focusTarget) {
   noticeMessage.textContent = message;
