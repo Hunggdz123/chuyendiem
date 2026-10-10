@@ -149,6 +149,145 @@ body::before {
   color: var(--primary);
 }
 
+.balance-panel {
+  margin: 18px 28px 20px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f5f9ff, #eef5ff);
+}
+
+.balance-summary h3,
+.history-section h3 {
+  margin: 0;
+  color: var(--title);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.balance-summary p {
+  margin: 6px 0 16px;
+  color: var(--primary);
+  font-size: 1.55rem;
+  font-weight: 800;
+}
+
+.transfer-rate-note,
+.transfer-rate-progress {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.transfer-rate-progress {
+  color: var(--primary-3);
+  font-weight: 700;
+}
+
+.add-points-form label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.add-points-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.add-points-controls input {
+  min-width: 0;
+  flex: 1;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font: inherit;
+}
+
+.add-points-controls button {
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: #e1edff;
+  color: var(--primary-3);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.history-section {
+  padding: 0 28px 28px;
+}
+
+.history-section h3 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.history-empty {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.history-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8rem;
+}
+
+.history-details,
+.history-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.history-details {
+  min-width: 0;
+}
+
+.history-details strong {
+  overflow-wrap: anywhere;
+}
+
+.history-details time {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.history-summary {
+  flex-shrink: 0;
+  align-items: flex-end;
+}
+
+.history-status {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.history-status.is-success {
+  color: #21834c;
+}
+
+.history-status.is-failed {
+  color: #c62828;
+}
+
 .transfer-form {
   background: transparent;
   display: flex;
@@ -417,6 +556,23 @@ body::before {
 .notice-button:focus-visible {
   outline: 3px solid rgba(15, 98, 255, 0.25);
   outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .balance-panel {
+    margin-right: 18px;
+    margin-left: 18px;
+  }
+
+  .history-section {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .add-points-controls button {
+    padding: 0 10px;
+    font-size: 0.68rem;
+  }
 }
 
 @keyframes notice-appear {

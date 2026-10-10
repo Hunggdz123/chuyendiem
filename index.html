@@ -27,6 +27,22 @@
         <h2 class="page-title">XỬ LÝ CHUYỂN ĐIỂM</h2>
         <button class="logout-button" id="logoutButton" type="button">ĐĂNG XUẤT</button>
 
+        <section class="balance-panel" aria-labelledby="balanceTitle">
+          <div class="balance-summary">
+            <h3 id="balanceTitle">Tổng điểm hiện có</h3>
+            <p><span id="pointBalance">0</span> điểm</p>
+          </div>
+          <p class="transfer-rate-note">Mỗi 10 lần chuyển hợp lệ gồm 4 lượt được xét thành công và 6 lượt thất bại, thứ tự được xáo trộn. Lượt được xét thành công vẫn cần đủ số dư.</p>
+          <p class="transfer-rate-progress" id="transferRateProgress" aria-live="polite"></p>
+          <form id="addPointsForm" class="add-points-form" novalidate>
+            <label for="pointsToAdd">Cộng điểm</label>
+            <div class="add-points-controls">
+              <input id="pointsToAdd" type="number" min="1" step="1" placeholder="Nhập số điểm cần cộng" />
+              <button type="submit">CỘNG ĐIỂM</button>
+            </div>
+          </form>
+        </section>
+
         <form id="transferForm" class="transfer-form" novalidate>
           <div class="input-row">
             <input id="sourceAccount" type="text" minlength="7" placeholder="Nhập tài khoản nguồn" aria-label="Nhập tài khoản nguồn" />
@@ -52,6 +68,11 @@
 
           <button type="submit" class="bottom-bar">CHUYỂN ĐIỂM</button>
         </form>
+
+        <section class="history-section" aria-labelledby="historyTitle">
+          <h3 id="historyTitle">LỊCH SỬ CHUYỂN ĐIỂM</h3>
+          <div class="history-list" id="transferHistory" aria-live="polite"></div>
+        </section>
       </div>
     </div>
 

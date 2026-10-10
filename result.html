@@ -50,6 +50,10 @@
         white-space: nowrap;
       }
 
+      .success-title.is-failed {
+        color: #c62828;
+      }
+
       .result-date {
         font-size: 0.82rem;
         margin: 8px 0 0;
@@ -93,6 +97,10 @@
 
       .result-row .value.red {
         color: var(--primary);
+      }
+
+      .result-row .value.failed {
+        color: #c62828;
       }
 
       .result-msg {
@@ -172,7 +180,7 @@
           src="images/LLwin-logo.png"
           alt="LLwin logo"
         />
-        <div class="success-title">CHUYỂN THÀNH CÔNG</div>
+        <div class="success-title" id="resultTitle">CHUYỂN THÀNH CÔNG</div>
         <div class="result-date" id="resultDate">Ngày chuyển: --</div>
       </div>
 
@@ -189,19 +197,43 @@
           <div class="label">Số điểm chuyển:</div>
           <div class="value red" id="amountValue">--</div>
         </div>
+        <div class="result-row">
+          <div class="label">Số dư còn lại:</div>
+          <div class="value" id="balanceValue">--</div>
+        </div>
       </div>
 
-      <div class="result-msg">Chúc bạn chơi game vui vẻ!</div>
+      <div class="result-msg" id="resultMessage">Chúc bạn chơi game vui vẻ!</div>
 
       <button class="result-footer" id="closeButton" type="button">ĐÓNG</button>
     </div>
 
     <script>
-      const result = JSON.parse(localStorage.getItem('transferResult') || '{}');
+      const state = JSON.parse(localStorage.getItem('transferAppState') || '{}');
+      const result = state.result || {};
+      const failed = result.status === 'failed';
+      const resultTitle = document.getElementById('resultTitle');
+      resultTitle.textContent = failed ? 'CHUYỂN THẤT BẠI' : 'CHUYỂN THÀNH CÔNG';
+      resultTitle.classList.toggle('is-failed', failed);
+      document.title = failed ? 'Chuyển điểm thất bại' : 'Chuyển điểm thành công';
       document.getElementById('resultDate').textContent = 'Ngày chuyển: ' + (result.transferDate || '--');
       document.getElementById('sourceValue').textContent = result.sourceAccount || '--';
       document.getElementById('targetValue').textContent = result.targetAccount || '--';
       document.getElementById('amountValue').textContent = result.amount ? result.amount.toLocaleString('vi-VN') : '--';
+      document.getElementById('balanceValue').textContent = Number.isSafeInteger(result.balanceAfter)
+        ? result.balanceAfter.toLocaleString('vi-VN') + ' điểm'
+        : '--';
+      document.getElementById('resultMessage').textContent = failed
+        ? result.failureReason === 'rate'
+          ? 'Lượt này thuộc 6 lượt thất bại trong nhóm 10 lần chuyển. Điểm chưa bị trừ.'
+          : 'Số dư không đủ để thực hiện giao dịch. Điểm chưa bị trừ.'
+        : 'Chúc bạn chơi game vui vẻ!';
+      if (Number.isInteger(result.batchAttempt)) {
+        document.getElementById('resultDate').textContent += ' · Lượt ' + result.batchAttempt + '/10';
+      }
+      if (failed) {
+        document.getElementById('amountValue').classList.add('failed');
+      }
 
       document.getElementById('closeButton').addEventListener('click', () => {
         window.location.href = 'index.html';
