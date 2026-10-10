@@ -12,10 +12,11 @@ const pointBalance = document.getElementById('pointBalance');
 const addPointsForm = document.getElementById('addPointsForm');
 const pointsToAdd = document.getElementById('pointsToAdd');
 const transferHistory = document.getElementById('transferHistory');
-const transferRateProgress = document.getElementById('transferRateProgress');
+const outcomeButtons = document.querySelectorAll('[data-outcome]');
 const stateKey = 'transferAppState';
 let isHumanVerified = false;
 let focusAfterNotice = null;
+let forcedOutcome = null;
 
 function loadAppState() {
   const savedState = localStorage.getItem(stateKey);
@@ -70,8 +71,6 @@ function saveAppState() {
 
 function renderState() {
   pointBalance.textContent = appState.balance.toLocaleString('vi-VN');
-  transferRateProgress.textContent = 'Đợt hiện tại: ' + appState.attemptsInBatch +
-    '/10 lần hợp lệ · ' + appState.successesInBatch + '/4 lượt thành công';
   transferHistory.replaceChildren();
 
   if (appState.history.length === 0) {
@@ -163,6 +162,17 @@ if (verifyBox) {
   });
 }
 
+outcomeButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    const selectedOutcome = button.dataset.outcome;
+    forcedOutcome = forcedOutcome === selectedOutcome ? null : selectedOutcome;
+    outcomeButtons.forEach(function (outcomeButton) {
+      const isSelected = outcomeButton.dataset.outcome === forcedOutcome;
+      outcomeButton.setAttribute('aria-pressed', String(isSelected));
+    });
+  });
+});
+
 if (transferForm) {
   transferForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -207,17 +217,27 @@ if (transferForm) {
       return;
     }
 
-    if (!appState.successSchedule) {
-      appState.successSchedule = createSuccessSchedule();
+    let batchAttempt;
+    let succeeded;
+    let failureReason;
+    if (forcedOutcome) {
+      succeeded = forcedOutcome === 'success' && amount <= appState.balance;
+      failureReason = succeeded ? null : forcedOutcome === 'failed' ? 'manual' : 'balance';
+    } else {
+      if (!appState.successSchedule) {
+        appState.successSchedule = createSuccessSchedule();
+      }
+      batchAttempt = appState.attemptsInBatch + 1;
+      const scheduledSuccess = appState.successSchedule[appState.attemptsInBatch];
+      succeeded = scheduledSuccess && amount <= appState.balance;
+      failureReason = !scheduledSuccess ? 'rate' : succeeded ? null : 'balance';
     }
 
-    const batchAttempt = appState.attemptsInBatch + 1;
-    const scheduledSuccess = appState.successSchedule[appState.attemptsInBatch];
-    const succeeded = scheduledSuccess && amount <= appState.balance;
-    const failureReason = !scheduledSuccess ? 'rate' : succeeded ? null : 'balance';
     if (succeeded) {
       appState.balance -= amount;
-      appState.successesInBatch += 1;
+      if (!forcedOutcome) {
+        appState.successesInBatch += 1;
+      }
     }
 
     const result = {
@@ -233,10 +253,12 @@ if (transferForm) {
 
     appState.history.unshift(result);
     appState.result = result;
-    appState.attemptsInBatch = batchAttempt === 10 ? 0 : batchAttempt;
-    if (batchAttempt === 10) {
-      appState.successesInBatch = 0;
-      appState.successSchedule = null;
+    if (!forcedOutcome) {
+      appState.attemptsInBatch = batchAttempt === 10 ? 0 : batchAttempt;
+      if (batchAttempt === 10) {
+        appState.successesInBatch = 0;
+        appState.successSchedule = null;
+      }
     }
     saveAppState();
     window.location.href = 'result.html';

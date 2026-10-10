@@ -64,15 +64,19 @@ body::before {
 
 .page-shell {
   width: 100%;
-  max-width: 520px;
+  max-width: 1000px;
   margin: 0 auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) minmax(0, 400px) minmax(160px, 1fr);
+  gap: 24px;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 48px);
 }
 
 .app-card {
   width: 100%;
+  grid-column: 2;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.72);
   border-radius: 24px;
@@ -81,6 +85,73 @@ body::before {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.side-tools {
+  grid-column: 1;
+  grid-row: 1;
+  width: min(100%, 220px);
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 12px 30px rgba(12, 35, 66, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.side-panel {
+  min-width: 0;
+}
+
+.side-tools .add-points-form label {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.outcome-tools h3 {
+  margin: 0;
+  color: var(--title);
+  font-size: 0.9rem;
+}
+
+.outcome-tools p {
+  margin: 6px 0 10px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.outcome-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.outcome-buttons button {
+  min-height: 38px;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #f8fafc;
+  color: var(--title);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.outcome-buttons button[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: #e1edff;
+  color: var(--primary-3);
 }
 
 .brand-wrap {
@@ -170,19 +241,6 @@ body::before {
   color: var(--primary);
   font-size: 1.55rem;
   font-weight: 800;
-}
-
-.transfer-rate-note,
-.transfer-rate-progress {
-  margin: 0 0 12px;
-  color: var(--muted);
-  font-size: 0.75rem;
-  line-height: 1.5;
-}
-
-.transfer-rate-progress {
-  color: var(--primary-3);
-  font-weight: 700;
 }
 
 .add-points-form label {
@@ -575,6 +633,51 @@ body::before {
   }
 }
 
+@media (max-width: 860px) {
+  body {
+    align-items: flex-start;
+  }
+
+  .page-shell {
+    width: min(100%, 420px);
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+  }
+
+  .app-card {
+    order: 1;
+  }
+
+  .side-tools {
+    order: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    min-height: 0;
+    gap: 12px;
+    padding: 0;
+  }
+
+  .side-tools .add-points-controls {
+    gap: 6px;
+  }
+
+  .side-tools .add-points-controls input {
+    width: 0;
+    min-width: 0;
+    padding: 8px;
+  }
+
+  .side-tools .add-points-controls button {
+    min-height: 34px;
+    padding: 0 6px;
+    font-size: 0.62rem;
+  }
+}
+
 @keyframes notice-appear {
   from {
     opacity: 0;
@@ -610,5 +713,11 @@ body::before {
 
   .notice-dialog {
     padding: 26px 22px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .side-tools {
+    grid-template-columns: 1fr;
   }
 }

@@ -225,8 +225,10 @@
         : '--';
       document.getElementById('resultMessage').textContent = failed
         ? result.failureReason === 'rate'
-          ? 'Lượt này thuộc 6 lượt thất bại trong nhóm 10 lần chuyển. Điểm chưa bị trừ.'
-          : 'Số dư không đủ để thực hiện giao dịch. Điểm chưa bị trừ.'
+          ? ''
+          : result.failureReason === 'manual'
+            ? 'Lượt này được chọn thử nghiệm thất bại. Điểm chưa bị trừ.'
+            : 'Số dư không đủ để thực hiện giao dịch. Điểm chưa bị trừ.'
         : 'Chúc bạn chơi game vui vẻ!';
       if (Number.isInteger(result.batchAttempt)) {
         document.getElementById('resultDate').textContent += ' · Lượt ' + result.batchAttempt + '/10';

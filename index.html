@@ -15,6 +15,23 @@
       <source src="https://videos.files.wordpress.com/T07SD9Eb/ok.mp4" type="video/mp4" />
     </video>
     <div class="page-shell">
+      <aside class="side-tools" aria-label="Công cụ chuyển điểm">
+        <form id="addPointsForm" class="add-points-form side-panel" novalidate>
+          <label for="pointsToAdd">Cộng điểm</label>
+          <div class="add-points-controls">
+            <input id="pointsToAdd" type="number" min="1" step="1" placeholder="Nhập số điểm cần cộng" />
+            <button type="submit">CỘNG ĐIỂM</button>
+          </div>
+        </form>
+        <section class="outcome-tools side-panel" aria-labelledby="outcomeToolsTitle">
+          <h3 id="outcomeToolsTitle">Thử kết quả</h3>
+          <p>Không chọn thì áp dụng tỷ lệ ngẫu nhiên 4/6.</p>
+          <div class="outcome-buttons">
+            <button type="button" data-outcome="success" aria-pressed="false">Thành công</button>
+            <button type="button" data-outcome="failed" aria-pressed="false">Thất bại</button>
+          </div>
+        </section>
+      </aside>
       <div class="app-card">
         <div class="brand-wrap">
           <img
@@ -32,15 +49,6 @@
             <h3 id="balanceTitle">Tổng điểm hiện có</h3>
             <p><span id="pointBalance">0</span> điểm</p>
           </div>
-          <p class="transfer-rate-note">Mỗi 10 lần chuyển hợp lệ gồm 4 lượt được xét thành công và 6 lượt thất bại, thứ tự được xáo trộn. Lượt được xét thành công vẫn cần đủ số dư.</p>
-          <p class="transfer-rate-progress" id="transferRateProgress" aria-live="polite"></p>
-          <form id="addPointsForm" class="add-points-form" novalidate>
-            <label for="pointsToAdd">Cộng điểm</label>
-            <div class="add-points-controls">
-              <input id="pointsToAdd" type="number" min="1" step="1" placeholder="Nhập số điểm cần cộng" />
-              <button type="submit">CỘNG ĐIỂM</button>
-            </div>
-          </form>
         </section>
 
         <form id="transferForm" class="transfer-form" novalidate>
